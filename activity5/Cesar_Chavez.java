@@ -12,7 +12,7 @@ import java.util.Random;
  * @author Laurie White
  * @version April 2012
  */
-public class Magpie5
+public class Cesar_Chavez
 {
 	/**
 	 * Get a default greeting 	
@@ -20,7 +20,7 @@ public class Magpie5
 	 */	
 	public String getGreeting()
 	{
-		return "Hello, let's talk.";
+		return "Hello my name is Cesar Chavez, what is your name?";
 	}
 	
 	/**
@@ -33,60 +33,147 @@ public class Magpie5
 	public String getResponse(String statement)
 	{
 		String response = "";
-		if (statement.length() == 0)
-		{
+		if (statement.length() == 0) {
 			response = "Say something, please.";
 		}
-
-		else if (findKeyword(statement, "no") >= 0)
+		//create responses based on the history of Cesar Chavez
+		else if (findKeyword(statement, "farm") >= 0)
 		{
-			response = "Why so negative?";
+			response = "My family has been living on farms for many generations.";
 		}
-		else if (findKeyword(statement, "mother") >= 0
-				|| findKeyword(statement, "father") >= 0
-				|| findKeyword(statement, "sister") >= 0
-				|| findKeyword(statement, "brother") >= 0)
+		else if (findKeyword(statement, "union") >= 0)
 		{
-			response = "Tell me more about your family.";
+			response = "I helped form the United Farm Workers Union.";
+
+		} else if (findKeyword(statement, "strike") >= 0) {
+
+			response = "I led a strike of farm workers in 1965.";
+
+		}
+		// Cesar Chavez's family responses
+		else if (findKeyword(statement, "father") >= 0) {
+
+			response = "My %s was Librado, a farmer with my mother.".formatted("father");
+
+		} else if (findKeyword(statement, "grandfather") >= 0) {
+
+			response = "My %s was Cesario Chavez".formatted("grandfather");
+
+		} else if (findKeyword(statement, "sister") >= 0) {
+
+			response = "My %s was a very hard-working".formatted("sister");
+
+		} else if (findKeyword(statement, "mother") >= 0) {
+
+			response = "My %s is Juana".formatted("mother");
+
+		}
+		// Cesar Chavez's death and life
+		else if (findKeyword(statement, "death") >= 0) {
+
+			response = "I died on April 23, 1993.";
+
+		} else if (findKeyword(statement, "life") >= 0) {
+
+			response = "I was born on March 31, 1927.";
+
+		}
+		// Cesar Chavez's beliefs
+		else if (findKeyword(statement, "beliefs") >= 0
+		|| findKeyword(statement, "non-violence") >= 0) {
+
+			response = "I believe in non-violence.";
+
+		}
+		// Cesar Chavez's accomplishments responses
+		else if (findKeyword(statement, "accomplishments") >= 0
+		|| findKeyword(statement, "accomplishment") >= 0) {
+
+			response = "I helped form the United Farm Workers Union.";
+
+		}
+		// Cesar Chavez's awards
+		else if (findKeyword(statement, "awards") >= 0
+		|| findKeyword(statement, "award") >= 0) {
+
+			response = "I was awarded the Presidential Medal of Freedom.";
+
+		}
+		else if (findKeyword(statement, "occupation") >= 0) {
+
+			response = "I was a labor leader.";
+
+		}
+		else if (findKeyword(statement, "country") >= 0) {
+
+			response = "I was born in the United States.";
+
+		}
+		else if (findKeyword(statement, "religion") >= 0) {
+
+			response = "I was Roman Catholic.";
+
+		}
+		// Cesar Chavez childhood
+		else if (findKeyword(statement, "childhood") >= 0) {
+
+			response = "I was born in Yuma, Arizona in 1927.";
+
+		} else if (findKeyword(statement, "school") >= 0) {
+
+			response = "I attended school in Yuma, Arizona.";
+
+		} else if (findKeyword(statement, "teacher") >= 0) {
+
+			response = "My %s was very strict.".formatted("teacher");
+
+		} else if (findKeyword(statement, "friends") >= 0) {
+
+			response = "I had many %s growing up.".formatted("friends");
+
+		} else if (findKeyword(statement, "family") >= 0) {
+
+			response = "My %s was very close.".formatted("family");
+
+		}
+		// Cesar Chavez's age responses
+		else if (findKeyword(statement, "age") >= 0
+				|| findKeyword(statement, "old") >= 0) {
+
+			response = "I am not alive, I was 66 years old when I died.";
+
 		}
 
+		//If the statement is: "My name is <name>"
+		else if (findKeyword(statement, "my name is", 0) >= 0) {
+			response = transformMyNameIsStatement(statement);
+		}
 		// Responses which require transformations
-		else if (findKeyword(statement, "I want to", 0) >= 0)
-		{
+		else if (findKeyword(statement, "I want to", 0) >= 0) {
 			response = transformIWantToStatement(statement);
 		}
 		//  Part of student solution
-		else if (findKeyword(statement, "I want", 0) >= 0)
-		{
+		else if (findKeyword(statement, "I want", 0) >= 0) {
 			response = transformIWantStatement(statement);
-		}
-
-		else
-		{
+		} else {
 
 			// Look for a two word (you <something> me)
 			// pattern
 			int psn = findKeyword(statement, "you", 0);
 
 			if (psn >= 0
-					&& findKeyword(statement, "me", psn) >= 0)
-			{
+					&& findKeyword(statement, "me", psn) >= 0) {
 				response = transformYouMeStatement(statement);
-			}
-			else
-			{
+			} else {
 				//  Part of student solution
 				// Look for a two word (I <something> you)
 				// pattern
 				psn = findKeyword(statement, "i", 0);
 
 				if (psn >= 0
-						&& findKeyword(statement, "you", psn) >= 0)
-				{
+						&& findKeyword(statement, "you", psn) >= 0) {
 					response = transformIYouStatement(statement);
-				}
-				else
-				{
+				} else {
 					response = getRandomResponse();
 				}
 			}
@@ -116,6 +203,31 @@ public class Magpie5
 		return "What would it mean to " + restOfStatement + "?";
 	}
 
+
+	/**
+	 * Take a statement with "My name is <something>." and transform it into
+	 * "Hello, <something>."
+	 * @param statement the user statement, assumed to contain "My name is"
+	 *                  followed by a name
+	 */
+	private String transformMyNameIsStatement(String statement){
+		//  Remove the final period, if there is one
+		statement = statement.trim();
+		String lastChar = statement.substring(statement
+				.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement
+					.length() - 1);
+		}
+		int psn = findKeyword (statement, "My name is", 0);
+		String restOfStatement = statement.substring(psn + 10).trim();
+		if (restOfStatement.equals("Cesar Chavez")) {
+			return "Hello, Me.";
+		} else {
+			return "Hello, " + restOfStatement + ".";
+		}
+	}
 	
 	/**
 	 * Take a statement with "I want <something>." and transform it into 
