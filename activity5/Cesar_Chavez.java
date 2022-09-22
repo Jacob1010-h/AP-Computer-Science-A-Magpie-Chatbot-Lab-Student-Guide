@@ -36,6 +36,67 @@ public class Cesar_Chavez
 		if (statement.length() == 0) {
 			response = "Say something, please.";
 		}
+		//reference to "Open the pod bay doors" (2001, A Space Oddyssy)
+		else if (findKeyword(statement, "open the pod bay doors") >= 0) {
+
+			response = "I'm sorry, Dave. I'm afraid I can't do that.";
+		}
+		//reference to "Luke I am your father.." (Star Wars-The Empire Strikes Back)
+		else if (findKeyword(statement, "Luke I am your father") >= 0) {
+
+			response = "No, that's not true! That's impossible!";
+
+		}
+		// who are you response
+		else if (findKeyword(statement, "who are you") >= 0) {
+
+			response = "I am Cesar Chavez, a civil rights activist and labor leader.";
+
+		}
+		//what did you do responce
+		else if (findKeyword(statement, "what did you do") >= 0) {
+
+			response = "I was a civil rights activist and labor leader.";
+
+		}
+		//depressed response
+		else if (findKeyword(statement, "depressed") >= 0) {
+
+			response = "I'm sorry to hear that. I hope you feel better soon.";
+
+		}
+		//therapy response
+		else if (findKeyword(statement, "therapy") >= 0) {
+
+			response = "I'm sorry to hear that. I hope you feel better soon.";
+
+		}
+		//sad response
+		else if (findKeyword(statement, "sad") >= 0) {
+
+			response = "I'm sorry to hear that. I hope you feel better soon.";
+
+		}
+		//i need help response
+		else if (findKeyword(statement, "i need help") >= 0) {
+
+			response = "I'm sorry to hear that. If you think that you are in danger, please call 911 or need help with depression, call, 988.";
+
+		}
+		// if the user says "die" then raise an exception
+		else if (findKeyword(statement, "die") >= 0
+				|| findKeyword(statement, "kill you") >= 0
+				|| findKeyword(statement, "6 feet under") >= 0
+				|| findKeyword(statement, "six feet under") >= 0) {
+
+			throw new RuntimeException("You killed Cesar Chavez!");
+
+		}
+		// hello statements
+		else if (findKeyword(statement, "hi") >= 0
+				|| findKeyword(statement, "hello") >= 0) {
+			response = "Hello, how are you?";
+		}
 		//create responses based on the history of Cesar Chavez
 		else if (findKeyword(statement, "farm") >= 0)
 		{
@@ -222,11 +283,16 @@ public class Cesar_Chavez
 		}
 		int psn = findKeyword (statement, "My name is", 0);
 		String restOfStatement = statement.substring(psn + 10).trim();
-		if (restOfStatement.equals("Cesar Chavez")) {
+		if (restOfStatement.equalsIgnoreCase("Cesar Chavez")) {
 			return "Hello, Me.";
-		} else {
+		}
+		else if(restOfStatement.equalsIgnoreCase("jaffe") || restOfStatement.equalsIgnoreCase("roger")) {
+			return "MR. JAFFE, THE GOD HIMSELF?! I bow in respect the the great Mr. Jaffe.";
+		}
+		else {
 			return "Hello, " + restOfStatement + ".";
 		}
+
 	}
 	
 	/**
