@@ -48,13 +48,13 @@ public class Cesar_Chavez
 
 		}
 		// who are you response
-		else if (findKeyword(statement, "who are you") >= 0) {
+		else if (findKeyword(statement, "who are you") >= 0 || findKeyword(statement, "do") >= 0) {
 
 			response = "I am Cesar Chavez, a civil rights activist and labor leader.";
 
 		}
 		//what did you do responce
-		else if (findKeyword(statement, "what did you do") >= 0) {
+		else if (findKeyword(statement, "what did you do") >= 0 || findKeyword(statement, "famous") >= 0) {
 
 			response = "I was a civil rights activist and labor leader.";
 
@@ -84,8 +84,7 @@ public class Cesar_Chavez
 
 		}
 		// if the user says "die" then raise an exception
-		else if (findKeyword(statement, "die") >= 0
-				|| findKeyword(statement, "kill you") >= 0
+		else if (findKeyword(statement, "kill you") >= 0
 				|| findKeyword(statement, "6 feet under") >= 0
 				|| findKeyword(statement, "six feet under") >= 0) {
 
@@ -129,8 +128,26 @@ public class Cesar_Chavez
 			response = "My %s is Juana".formatted("mother");
 
 		}
+		//Cesar Chavez's family responses
+		else if (findKeyword(statement, "grandmother") >= 0) {
+
+			response = "My %s was Maria".formatted("grandmother");
+
+		}
+		//wife
+		else if (findKeyword(statement, "wife") >= 0) {
+
+			response = "My %s was Helen Fabela".formatted("wife");
+
+		}
+		else if (findKeyword(statement, "children") >= 0) {
+
+			response = "My %s were Paul, Peter, and Paulina".formatted("children");
+
+		}
+
 		// Cesar Chavez's death and life
-		else if (findKeyword(statement, "death") >= 0) {
+		else if (findKeyword(statement, "die") >= 0) {
 
 			response = "I died on April 23, 1993.";
 
@@ -140,15 +157,14 @@ public class Cesar_Chavez
 
 		}
 		// Cesar Chavez's beliefs
-		else if (findKeyword(statement, "beliefs") >= 0
+		else if (findKeyword(statement, "believe") >= 0
 		|| findKeyword(statement, "non-violence") >= 0) {
 
 			response = "I believe in non-violence.";
 
 		}
 		// Cesar Chavez's accomplishments responses
-		else if (findKeyword(statement, "accomplishments") >= 0
-		|| findKeyword(statement, "accomplishment") >= 0) {
+		else if (findKeyword(statement, "accomplish") >= 0) {
 
 			response = "I helped form the United Farm Workers Union.";
 
@@ -175,6 +191,23 @@ public class Cesar_Chavez
 			response = "I was Roman Catholic.";
 
 		}
+
+		//If the statement is: "My name is <name>"
+		else if (findKeyword(statement, "my name is", 0) >= 0) {
+			response = transformMyNameIsStatement(statement);
+		}
+
+		else if (findKeyword(statement, "my name") >= 0){
+
+			response = "Hello %s, how are you?".formatted(Cesar_Chavez_Runner.getName());
+
+		} else if (findKeyword(statement, "name") >= 0) {
+
+			response = "My name is Cesar Chavez.";
+
+		}
+
+
 		// Cesar Chavez childhood
 		else if (findKeyword(statement, "childhood") >= 0) {
 
@@ -205,10 +238,6 @@ public class Cesar_Chavez
 
 		}
 
-		//If the statement is: "My name is <name>"
-		else if (findKeyword(statement, "my name is", 0) >= 0) {
-			response = transformMyNameIsStatement(statement);
-		}
 		// Responses which require transformations
 		else if (findKeyword(statement, "I want to", 0) >= 0) {
 			response = transformIWantToStatement(statement);
@@ -283,6 +312,9 @@ public class Cesar_Chavez
 		}
 		int psn = findKeyword (statement, "My name is", 0);
 		String restOfStatement = statement.substring(psn + 10).trim();
+
+		Cesar_Chavez_Runner.setName(restOfStatement);
+
 		if (restOfStatement.equalsIgnoreCase("Cesar Chavez")) {
 			return "Hello, Me.";
 		}
